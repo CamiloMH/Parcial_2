@@ -1,10 +1,19 @@
+const sequelize = require("sequelize")
 const Paciente = require("../models/pacientes")
 const { Op } = require('sequelize')
 const { verificarRut } = require("../helpers/verificarRut")
 
 const getAllPaciente =  async (req,res) => {
     try {
-        const pacientes = await Paciente.findAll()
+        const pacientes = await Paciente.findAll({
+            attributes: {
+                include: [
+                  [sequelize.fn('DATE_FORMAT', sequelize.col('createdDate'), '%d-%m-%Y'), 'createdDate'],
+                  [sequelize.fn('DATE_FORMAT', sequelize.col('lastModifiedDate'), '%d-%m-%Y'), 'lastModifiedDate']
+                ],
+                exclude: ['createdDate', 'lastModifiedDate']
+              }
+        })
         res.status(200).json(pacientes)
     } catch (error) {
         res.status(400).json(error)
