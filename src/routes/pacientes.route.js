@@ -3,7 +3,7 @@ const { getAllPaciente, obtenerPaciente, crearPaciente, deletePaciente, actualiz
 const router = express.Router()
 
 router.get('/',getAllPaciente )
-router.get('/:pacienteId', obtenerPaciente)
+router.get('/:rut', obtenerPaciente)
 router.post('/', crearPaciente)
 router.put('/:pacienteId', actualizarPaciente)
 router.delete('/:pacienteId', deletePaciente)
