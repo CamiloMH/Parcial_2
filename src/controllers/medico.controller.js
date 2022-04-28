@@ -1,6 +1,7 @@
 const sequelize = require("sequelize")
-const { verificarRut } = require("../helpers/verificarRut")
 const Medico = require("../models/medicos")
+const { Op } = require('sequelize')
+const { verificarRut } = require("../helpers/verificarRut")
 
 
 const getAllMedics = async (req,res) => {
@@ -22,8 +23,14 @@ const getAllMedics = async (req,res) => {
 
 const getMedicoByRUT = async (req,res) => {
     try {
-        const { medicoId } = req.params
-        const medico = await Medico.findByPk(medicoId)
+        const { rut } = req.params
+        const { rutValido, rutFormat } = verificarRut(rut)
+        if(!rutValido) return res.status(400).json({ Error: 'Rut invalido' })
+        const medico = await Medico.findOne({
+            where:{
+                rut: rutFormat
+            }
+        })
         res.status(200).json(medico ? medico : {})
     } catch (error) {
         res.status(400).json(error)
@@ -36,6 +43,14 @@ const createMedic = async (req,res) => {
 
         const { rutValido, rutFormat } = verificarRut(rut)
         if(!rutValido) return res.status(400).json({ Error: 'Rut invalido' })
+
+        const getMedico = await Medico.count({
+            where:{
+                rut: rutFormat
+            }
+        })
+
+        if(getMedico > 0) return res.status(403).json({ Error: 'Ya existe un médico con ese RUT'})
 
         const medico = {
             rut: rutFormat,
@@ -58,6 +73,18 @@ const updateMedic = async (req,res) => {
 
         const { rutValido, rutFormat } = verificarRut(rut)
         if (!rutValido) return res.status(400).json({ Error: 'Rut invalido' })
+
+        const getMedico = await Medico.count({
+            where:{
+                rut: rutFormat,
+                id : {
+                    [Op.ne]: medicoId
+                }
+            }
+        })
+
+        if(getMedico > 0) return res.status(403).json({ Error: 'Ya existe un médico con ese RUT'})
+
 
         const medico = {
             rut: rutFormat,
