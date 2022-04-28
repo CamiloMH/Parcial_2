@@ -20,7 +20,7 @@ const getAllMedics = async (req,res) => {
     }
 }
 
-const getMedicById = async (req,res) => {
+const getMedicoByRUT = async (req,res) => {
     try {
         const { medicoId } = req.params
         const medico = await Medico.findByPk(medicoId)
@@ -94,7 +94,7 @@ const deleteMedic = async (req,res) => {
 
 module.exports = {
     getAllMedics,
-    getMedicById,
+    getMedicoByRUT,
     createMedic,
     updateMedic,
     deleteMedic
