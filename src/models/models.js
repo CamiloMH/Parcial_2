@@ -2,8 +2,22 @@ const Paciente = require('./pacientes')
 const Medico = require('./medicos')
 const Ficha = require('./fichas')
 
-Medico.hasMany(Ficha, {foreignKey: 'medicoId'})
-Paciente.hasOne(Ficha, {foreignKey: 'pacienteId'})
+Medico.hasMany(Ficha, { foreignKey:{
+    allowNull: false
+}})
+
+Paciente.hasOne(Ficha, { foreignKey: {
+    allowNull: false
+  },
+   onDelete: 'CASCADE' })
+
+Ficha.belongsTo(Paciente , { foreignKey: {
+    allowNull: false
+  }})
+
+Ficha.belongsTo(Medico, { foreignKey: {
+    allowNull: false
+}})
 
 module.exports = {
     models:{
