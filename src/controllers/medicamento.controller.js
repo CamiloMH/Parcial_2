@@ -12,7 +12,6 @@ const getAllMedicamentos = async (req, res) => {
         exclude: ['createdDate', 'lastModifiedDate']
       }
     })
-    console.log(medicamentos);
     res.status(200).json(medicamentos)
   } catch (error) {
     res.status(400).json(error)
