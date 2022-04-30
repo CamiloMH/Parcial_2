@@ -1,5 +1,5 @@
 const { check } = require('express-validator')
-const { validateFields } = require('./validateFields')
+const { validateFields } = require('../middleware/validateFields')
 
 
 const genarateValidators = () =>[
