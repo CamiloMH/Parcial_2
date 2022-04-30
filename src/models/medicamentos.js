@@ -30,7 +30,7 @@ const Medicamento = sequelizeFarmacia.define('Medicamento', {
   motivo: DataTypes.TEXT('long'),
   descripcion: DataTypes.TEXT('long'),
   createdDate: DataTypes.DATE,
-  lastModifiedDate: DataTypes.DATE,
+  lastModifiedDate: DataTypes.DATE
 }, {
   timestamps: false,
   tableName: 'medicamentos'

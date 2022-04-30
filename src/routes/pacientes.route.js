@@ -2,7 +2,7 @@ const express = require('express')
 const { getAllPaciente, obtenerPaciente, crearPaciente, deletePaciente, actualizarPaciente } = require('../controllers/paciente.controller')
 const router = express.Router()
 
-router.get('/',getAllPaciente )
+router.get('/', getAllPaciente)
 router.get('/:rut', obtenerPaciente)
 router.post('/', crearPaciente)
 router.put('/:pacienteId', actualizarPaciente)

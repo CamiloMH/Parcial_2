@@ -19,7 +19,7 @@ const Medico = sequelize.define('Medico', {
     allowNull: false
   },
   createdDate: DataTypes.DATE,
-  lastModifiedDate: DataTypes.DATE,
+  lastModifiedDate: DataTypes.DATE
 }, {
   timestamps: false,
   tableName: 'medicos'

@@ -8,5 +8,4 @@ router.post('/', createFicha)
 router.put('/:fichaId', updateFicha)
 router.delete('/:fichaId', deleteFicha)
 
-
 module.exports = router
