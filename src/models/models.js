@@ -1,6 +1,7 @@
 const Paciente = require('./pacientes')
 const Medico = require('./medicos')
 const Ficha = require('./fichas')
+const Medicamento = require('./medicamentos')
 
 Medico.hasMany(Ficha, { foreignKey:{
     allowNull: false
@@ -23,6 +24,7 @@ module.exports = {
     models:{
         Paciente,
         Medico,
-        Ficha
+        Ficha,
+        Medicamento
     }
 }
