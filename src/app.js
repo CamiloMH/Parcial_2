@@ -9,9 +9,13 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true}))
 
-//Rutas
+//Rutas CEFAM
 app.use('/api/medicos', require('./routes/medico.route'))
 app.use('/api/pacientes', require('./routes/pacientes.route'))
 app.use('/api/fichas', require('./routes/fichas.route'))
+
+//Rutas Farmacia
+app.use('/api/medicamentos', require('./routes/medicamento.route'))
+
 
 module.exports = app
