@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize')
 const { sequelize } = require('../db/database')
 
-const Paciente = sequelize.define('Paciente', {
+const Funcionario = sequelize.define('Funcionario', {
   rut: {
     type: DataTypes.INTEGER(8),
     allowNull: false
@@ -13,13 +13,11 @@ const Paciente = sequelize.define('Paciente', {
   nombre: DataTypes.STRING(50),
   edad: DataTypes.INTEGER(3),
   isDisabled: DataTypes.TINYINT,
-  correo: DataTypes.STRING(50),
-  celular: DataTypes.INTEGER(9),
   createdDate: DataTypes.DATE,
   lastModifiedDate: DataTypes.DATE
 }, {
   timestamps: false,
-  tableName: 'pacientes'
+  tableName: 'funcionarios'
 })
 
-module.exports = Paciente
+module.exports = Funcionario

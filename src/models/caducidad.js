@@ -1,14 +1,16 @@
 const { DataTypes } = require('sequelize')
 const { sequelize } = require('../db/database')
 
-const Ficha = sequelize.define('Ficha', {
-  observaciones: DataTypes.TEXT('long'),
-  isDisabled: DataTypes.TINYINT,
+const Caducidad = sequelize.define('Caducidad', {
+  motivo: {
+    type: DataTypes.STRING(100),
+    allowNull: false
+  },
   createdDate: DataTypes.DATE,
   lastModifiedDate: DataTypes.DATE
 }, {
   timestamps: false,
-  tableName: 'fichas'
+  tableName: 'caducidad'
 })
 
-module.exports = Ficha
+module.exports = Caducidad

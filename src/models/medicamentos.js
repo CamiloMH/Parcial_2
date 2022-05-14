@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize')
-const { sequelizeFarmacia } = require('../db/database')
+const { sequelize } = require('../db/database')
 
-const Medicamento = sequelizeFarmacia.define('Medicamento', {
+const Medicamento = sequelize.define('Medicamento', {
   nombre: {
     type: DataTypes.STRING(100),
     allowNull: false
