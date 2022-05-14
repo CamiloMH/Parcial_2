@@ -37,6 +37,7 @@ const getFichaByRutPaciente = async (req, res) => {
     res.status(400).json(error)
   }
 }
+
 const createFicha = async (req, res) => {
   try {
     const { rutMedico, rutPaciente, observaciones = null } = req.body
