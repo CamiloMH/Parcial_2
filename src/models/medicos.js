@@ -14,10 +14,6 @@ const Medico = sequelize.define('Medico', {
     type: DataTypes.STRING(50),
     allowNull: false
   },
-  especialidad: {
-    type: DataTypes.STRING(100),
-    allowNull: false
-  },
   edad: DataTypes.INTEGER(3),
   isDisabled: DataTypes.TINYINT,
   createdDate: DataTypes.DATE,
