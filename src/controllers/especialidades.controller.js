@@ -1,14 +1,31 @@
-const getAllEspecialidades = (req,res) => {
+const Especialidad = require("../models/especialidad")
+
+const getAllEspecialidades = async (req,res) => {
     try {
-        
+        const especialidades = await Especialidad.findAll({
+            attributes: {
+                include: [
+                  [sequelize.fn('DATE_FORMAT', sequelize.col('createdDate'), '%d-%m-%Y'), 'createdDate'],
+                  [sequelize.fn('DATE_FORMAT', sequelize.col('lastModifiedDate'), '%d-%m-%Y'), 'lastModifiedDate']
+                ],
+                exclude: ['createdDate', 'lastModifiedDate']
+              }
+        })
+        res.status(200).json(especialidades)
     } catch (error) {
         res.status(400).json(error)
     }
 }
 
-const getEspecialdadById = (req,res) => {
+const getEspecialdadById = async (req,res) => {
     try {
-        
+        const { especialidadId } = req.params
+        const especialidad = await Especialidad.findOne({
+            where:{
+                id: especialidadId
+            }
+        })
+        res.status(200).json(especialidad || {})
     } catch (error) {
         res.status(400).json(error)
     }
