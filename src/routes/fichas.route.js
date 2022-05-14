@@ -1,5 +1,5 @@
 const express = require('express')
-const { getAllFichas, getFichaByRutPaciente, createFicha, updateFicha, deleteFicha } = require('../controllers/ficha.controller')
+const { getAllFichas, getFichaByRutPaciente, createFicha, updateFicha, deleteFicha } = require('../controllers/fichas.controller')
 const router = express.Router()
 
 router.get('/', getAllFichas)

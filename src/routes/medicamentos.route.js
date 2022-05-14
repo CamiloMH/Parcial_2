@@ -1,5 +1,5 @@
 const express = require('express')
-const { getAllMedicamentos, getMedicamentoById, createMedicamento, updateMedicamento, deleteMedicamento } = require('../controllers/medicamento.controller')
+const { getAllMedicamentos, getMedicamentoById, createMedicamento, updateMedicamento, deleteMedicamento } = require('../controllers/medicamentos.controller')
 const router = express.Router()
 
 router.get('/', getAllMedicamentos)
