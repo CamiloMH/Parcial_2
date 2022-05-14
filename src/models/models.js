@@ -3,10 +3,11 @@ const Medico = require('./medicos')
 const Ficha = require('./fichas')
 const Medicamento = require('./medicamentos')
 const Especialidad = require('./especialidad')
-const Estado = require('./estado')
+const Reserva = require('./reserva')
 const Tipo_medicamento = require('./tipo_medicamento')
 const Caducidad = require('./caducidad')
 const Funcionario = require('./funcionario')
+const Receta = require('./recetas')
 
 //-------------------------------------------------
 // Medico tiene muchas fichas y ficha solo un Medico
@@ -56,14 +57,14 @@ Medico.belongsTo(Especialidad, {
 //-------------------------------------------------
 
 //-------------------------------------------------
-//Estado tiene muchos medicamentos y medicamento solo tiene un estado
-Estado.hasMany(Medicamento, {
+//Reserva tiene muchos medicamentos y medicamento solo tiene un Reserva
+Reserva.hasMany(Medicamento, {
   foreignKey: {
     allowNull: false
   }
 })
 
-Medicamento.belongsTo(Estado, {
+Medicamento.belongsTo(Reserva, {
   foreignKey: {
     allowNull: false
   }
@@ -116,14 +117,29 @@ Medicamento.belongsTo(Funcionario, {
 //-------------------------------------------------
 
 //-------------------------------------------------
-//Ficha tiene muchos medicamentos y medicamentos tiene solo una ficha
-Ficha.hasMany(Medicamento, {
+//Medicamentos tiene muchas recetas
+Medicamento.hasMany(Receta, {
   foreignKey: {
     allowNull: false
   }
 })
 
-Medicamento.belongsTo(Ficha, {
+Receta.belongsTo(Medicamento, {
+  foreignKey: {
+    allowNull: false
+  }
+})
+//-------------------------------------------------
+
+//-------------------------------------------------
+//Fichas tiene muchas recetas 
+Ficha.hasMany(Receta, {
+  foreignKey: {
+    allowNull: false
+  }
+})
+
+Receta.belongsTo(Ficha, {
   foreignKey: {
     allowNull: false
   }
@@ -137,9 +153,10 @@ module.exports = {
     Ficha,
     Medicamento,
     Especialidad,
-    Estado,
+    Reserva,
     Tipo_medicamento,
     Caducidad,
-    Funcionario
+    Funcionario,
+    Receta
   }
 }

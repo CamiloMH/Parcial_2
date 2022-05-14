@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize')
 const { sequelize } = require('../db/database')
 
-const Estado = sequelize.define('Estado', {
+const Reserva = sequelize.define('Reserva', {
   descripcion: {
     type: DataTypes.STRING(70),
     allowNull: false
@@ -10,7 +10,7 @@ const Estado = sequelize.define('Estado', {
   lastModifiedDate: DataTypes.DATE
 }, {
   timestamps: false,
-  tableName: 'estados'
+  tableName: 'reserva'
 })
 
-module.exports = Estado
+module.exports = Reserva

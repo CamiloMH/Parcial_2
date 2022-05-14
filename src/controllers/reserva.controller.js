@@ -1,4 +1,4 @@
-const getAllEstados = (req,res) => {
+const getAllReservas = (req,res) => {
     try {
         
     } catch (error) {
@@ -6,7 +6,7 @@ const getAllEstados = (req,res) => {
     }
 }
 
-const getEstadoById = (req,res) => {
+const getReservaById = (req,res) => {
     try {
         
     } catch (error) {
@@ -14,7 +14,7 @@ const getEstadoById = (req,res) => {
     }
 }
 
-const createEstado = (req,res) => {
+const createReserva = (req,res) => {
     try {
         
     } catch (error) {
@@ -22,7 +22,7 @@ const createEstado = (req,res) => {
     }
 }
 
-const updateEstado = (req,res) => {
+const updateReserva = (req,res) => {
     try {
         
     } catch (error) {
@@ -30,7 +30,7 @@ const updateEstado = (req,res) => {
     }
 }
 
-const deleteEstado = (req,res) => {
+const deleteReserva = (req,res) => {
     try {
         
     } catch (error) {
@@ -39,9 +39,9 @@ const deleteEstado = (req,res) => {
 }
 
 module.exports = {
-    getAllEstados,
-    getEstadoById,
-    createEstado,
-    updateEstado,
-    deleteEstado
+    getAllReservas,
+    getReservaById,
+    createReserva,
+    updateReserva,
+    deleteReserva
 }
