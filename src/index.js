@@ -7,7 +7,7 @@ const PORT = process.env.PORT || '4000'
 const server = app.listen(PORT, async () => {
   try {
     // FORCE true: DROP TABLE
-    await sequelize.sync({ force: true, alter: true })
+    await sequelize.sync({ force: false, alter: true })
     // await sequelizeFarmacia.sync({ force: false, alter: true })
   } catch (error) {
     throw new Error(error)
