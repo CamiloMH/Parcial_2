@@ -3,14 +3,18 @@ const { sequelize } = require('../db/database')
 
 const Medico = sequelize.define('Medico', {
   rut: {
-    type: DataTypes.STRING(12),
+    type: DataTypes.INTEGER(8),
     allowNull: false
   },
   dv: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(1),
     allowNull: false
   },
   nombre: {
+    type: DataTypes.STRING(50),
+    allowNull: false
+  },
+  apellidos: {
     type: DataTypes.STRING(50),
     allowNull: false
   },
