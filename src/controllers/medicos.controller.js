@@ -20,14 +20,33 @@ const getAllMedics = async (req, res) => {
   }
 }
 
+const getMedicoById = async (req, res) => {
+  try {
+    const { medicoId } = req.params
+    const medico = await Medico.findOne({
+      where: {
+        id: medicoId
+      }
+    })
+    res.status(200).json(medico || {})
+  } catch (error) {
+    res.status(400).json(error)
+  }
+}
+
 const getMedicoByRUT = async (req, res) => {
   try {
     const { rut } = req.params
-    const { rutValido, rutFormat } = verificarRut(rut)
+
+    const { rutValido, rutFormat  } = verificarRut(rut)
     if (!rutValido) return res.status(400).json({ Error: 'Rut invalido' })
+
+    const rutSplit = rutFormat.split('-',-1)
+    const rutParse = parseInt(rutSplit[0])
+
     const medico = await Medico.findOne({
       where: {
-        rut: rutFormat
+        rut: rutParse
       }
     })
     res.status(200).json(medico || {})
@@ -38,24 +57,29 @@ const getMedicoByRUT = async (req, res) => {
 
 const createMedic = async (req, res) => {
   try {
-    const { rut, nombre, apellido, especialidad } = req.body
+    const { rut, dv, nombre, apellidos, EspecialidadId } = req.body
+    const rutDv = `${rut}-${dv}`
 
-    const { rutValido, rutFormat } = verificarRut(rut)
+    const { rutValido } = verificarRut(rutDv)
     if (!rutValido) return res.status(400).json({ Error: 'Rut invalido' })
+
+    typeof rut === '' ? parseInt(rut) : rut
 
     const getMedico = await Medico.count({
       where: {
-        rut: rutFormat
+        rut
       }
     })
 
     if (getMedico > 0) return res.status(403).json({ Error: 'Ya existe un médico con ese RUT' })
 
     const medico = {
-      rut: rutFormat,
+      rut,
+      dv,
       nombre,
-      apellido,
-      especialidad,
+      apellidos,
+      EspecialidadId,
+      isDisabled: 0,
       createdDate: new Date()
     }
     await Medico.create(medico)
@@ -68,14 +92,15 @@ const createMedic = async (req, res) => {
 const updateMedic = async (req, res) => {
   try {
     const { medicoId } = req.params
-    const { rut, nombre, apellido, especialidad } = req.body
+    const { rut, dv, nombre, apellidos, EspecialidadId } = req.body
+    const rutDv = `${rut}-${dv}`
 
-    const { rutValido, rutFormat } = verificarRut(rut)
+    const { rutValido } = verificarRut(rutDv)
     if (!rutValido) return res.status(400).json({ Error: 'Rut invalido' })
 
     const getMedico = await Medico.count({
       where: {
-        rut: rutFormat,
+        rut,
         id: {
           [Op.ne]: medicoId
         }
@@ -85,10 +110,11 @@ const updateMedic = async (req, res) => {
     if (getMedico > 0) return res.status(403).json({ Error: 'Ya existe un médico con ese RUT' })
 
     const medico = {
-      rut: rutFormat,
+      rut,
+      dv,
       nombre,
-      apellido,
-      especialidad,
+      apellidos,
+      EspecialidadId,
       lastModifiedDate: new Date()
     }
 
@@ -98,6 +124,21 @@ const updateMedic = async (req, res) => {
       }
     })
     result[0] === 0 ? res.status(400).json({ Error: 'El médico no existe' }) : res.status(200).json({ Status: 'Médico actualizado' })
+  } catch (error) {
+    res.status(400).json(error)
+  }
+}
+
+const disabledMedic = async (req,res) => {
+  try {
+    const { medicoId } = req.params
+    const isDisabled = 1
+    const result = await Medico.update({isDisabled}, {
+      where: {
+        id: medicoId
+      }
+    })
+    result[0] === 0 ? res.status(400).json({ Error: 'El médico no existe' }) : res.status(200).json({ Status: 'Médico desabilitado' })
   } catch (error) {
     res.status(400).json(error)
   }
@@ -119,8 +160,10 @@ const deleteMedic = async (req, res) => {
 
 module.exports = {
   getAllMedics,
+  getMedicoById,
   getMedicoByRUT,
   createMedic,
   updateMedic,
+  disabledMedic,
   deleteMedic
 }
