@@ -19,7 +19,7 @@ const Paciente = sequelize.define('Paciente', {
     allowNull: false
   },
   edad: {
-    type: DataTypes.STRING(3),
+    type: DataTypes.INTEGER(3),
     allowNull: false
   },
   correo: {
@@ -29,13 +29,10 @@ const Paciente = sequelize.define('Paciente', {
   celular: {
     type: DataTypes.INTEGER(9),
     allowNull: false
-  },
-  isDisabled: DataTypes.TINYINT,
-  createdDate: DataTypes.DATE,
-  lastModifiedDate: DataTypes.DATE
+  }
 }, {
-  timestamps: false,
-  tableName: 'pacientes'
+  tableName: 'pacientes',
+  paranoid: true
 })
 
 module.exports = Paciente
